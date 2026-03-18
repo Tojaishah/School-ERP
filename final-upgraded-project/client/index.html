@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduStart — Preschool Franchise Leads</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --saffron: #F4A017; --deep: #1A1209; --cream: #FDF6E3;
+    --rust: #C0430A; --sage: #4A7C59; --light: #FFF9EE;
+    --border: rgba(244,160,23,0.25);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--deep); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%; background: rgba(255,249,238,0.9);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:800; color:var(--deep); letter-spacing:-0.02em; }
+  .logo span { color: var(--saffron); }
+  nav a { text-decoration:none; color:var(--deep); font-size:0.9rem; font-weight:500; opacity:0.7; transition:opacity .2s; }
+  nav a:hover { opacity:1; }
+  .nav-links { display:flex; gap:2rem; align-items:center; }
+  .nav-cta { background:var(--deep)!important; color:var(--cream)!important; padding:.55rem 1.3rem; border-radius:50px; opacity:1!important; transition:background .2s!important; }
+  .nav-cta:hover { background:var(--rust)!important; }
+
+  /* HERO */
+  .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:8rem 5% 5rem; gap:4rem; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; top:-10%; right:-5%; width:55vw; height:80vh; background:radial-gradient(ellipse, rgba(244,160,23,0.12) 0%,transparent 70%); pointer-events:none; }
+  .hero-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(244,160,23,0.15); border:1px solid var(--border); padding:.4rem 1rem; border-radius:50px; font-size:.78rem; font-weight:500; color:var(--rust); margin-bottom:1.5rem; animation:fadeUp .8s ease both; }
+  .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--rust); animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+  .hero h1 { font-family:'Fraunces',serif; font-size:clamp(2.8rem,5vw,4.5rem); font-weight:800; line-height:1.05; letter-spacing:-.03em; animation:fadeUp .9s .1s ease both; }
+  .hero h1 em { font-style:italic; color:var(--saffron); }
+  .hero-sub { margin-top:1.4rem; font-size:1.05rem; line-height:1.7; color:rgba(26,18,9,.65); max-width:480px; animation:fadeUp 1s .2s ease both; }
+  .hero-actions { display:flex; gap:1rem; margin-top:2.5rem; flex-wrap:wrap; animation:fadeUp 1s .3s ease both; }
+  .btn-primary { background:var(--deep); color:var(--cream); padding:.85rem 2rem; border-radius:50px; font-size:.95rem; font-weight:500; text-decoration:none; border:none; cursor:pointer; transition:background .2s,transform .2s,box-shadow .2s; display:inline-flex; align-items:center; gap:.5rem; }
+  .btn-primary:hover { background:var(--rust); transform:translateY(-2px); box-shadow:0 8px 24px rgba(192,67,10,.3); }
+  .btn-secondary { background:transparent; color:var(--deep); padding:.85rem 2rem; border-radius:50px; font-size:.95rem; font-weight:500; text-decoration:none; border:1.5px solid var(--border); cursor:pointer; transition:border-color .2s,background .2s; }
+  .btn-secondary:hover { border-color:var(--saffron); background:rgba(244,160,23,.06); }
+  .hero-stats { display:flex; gap:2.5rem; margin-top:3rem; animation:fadeUp 1s .4s ease both; }
+  .stat-num { font-family:'Fraunces',serif; font-size:2rem; font-weight:800; line-height:1; }
+  .stat-label { font-size:.78rem; color:rgba(26,18,9,.5); margin-top:.3rem; }
+
+  /* HERO VISUAL CARD */
+  .hero-visual { animation:fadeUp 1s .2s ease both; position:relative; }
+  .visual-card { background:white; border-radius:24px; padding:2rem; box-shadow:0 24px 80px rgba(26,18,9,.12); border:1px solid var(--border); }
+  .vc-header { display:flex; align-items:center; gap:.8rem; margin-bottom:1.5rem; }
+  .vc-icon { width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,var(--saffron),var(--rust)); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+  .vc-title { font-family:'Fraunces',serif; font-weight:600; font-size:1.1rem; }
+  .vc-sub { font-size:.78rem; color:rgba(26,18,9,.5); }
+  .lead-list { display:flex; flex-direction:column; gap:.75rem; }
+  .lead-item { display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem; border-radius:12px; background:var(--light); border:1px solid var(--border); }
+  .lead-avatar { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.9rem; font-weight:700; color:white; flex-shrink:0; }
+  .lead-name { font-size:.88rem; font-weight:500; }
+  .lead-detail { font-size:.75rem; color:rgba(26,18,9,.5); }
+  .lead-budget { font-size:.75rem; font-weight:600; background:rgba(74,124,89,.1); color:var(--sage); padding:.2rem .6rem; border-radius:20px; }
+  .vc-footer { margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; }
+  .vc-metric-val { font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; color:var(--rust); }
+  .vc-metric-label { font-size:.72rem; color:rgba(26,18,9,.5); }
+  .floating-badge { position:absolute; top:-1rem; right:-1rem; background:var(--sage); color:white; padding:.5rem 1rem; border-radius:50px; font-size:.78rem; font-weight:600; box-shadow:0 8px 20px rgba(74,124,89,.3); animation:float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+  /* SECTIONS */
+  .section { padding:7rem 5%; }
+  .section-label { font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin-bottom:1rem; }
+  .section-title { font-family:'Fraunces',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:800; line-height:1.1; letter-spacing:-.02em; max-width:560px; }
+  .section-sub { margin-top:1rem; font-size:1rem; line-height:1.7; color:rgba(26,18,9,.6); max-width:480px; }
+
+  /* STEPS */
+  .steps-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; margin-top:4rem; }
+  .step-card { background:white; border-radius:20px; padding:2rem; border:1px solid var(--border); transition:transform .3s,box-shadow .3s; position:relative; overflow:hidden; opacity:0; }
+  .step-card::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--saffron),var(--rust)); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+  .step-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(26,18,9,.1); }
+  .step-card:hover::after { transform:scaleX(1); }
+  .step-num { font-family:'Fraunces',serif; font-size:3rem; font-weight:800; color:rgba(244,160,23,.2); line-height:1; margin-bottom:1rem; }
+  .step-icon { font-size:1.8rem; margin-bottom:.8rem; }
+  .step-title { font-weight:600; font-size:1rem; margin-bottom:.5rem; }
+  .step-desc { font-size:.85rem; color:rgba(26,18,9,.6); line-height:1.6; }
+
+  /* BRANDS */
+  .brands-section { background:var(--deep); padding:5rem 5%; color:var(--cream); }
+  .brands-section .section-title { color:var(--cream); }
+  .brands-section .section-label { color:var(--saffron); }
+  .brands-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; margin-top:3.5rem; }
+  .brand-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:1.5rem; display:flex; align-items:center; gap:1rem; transition:background .2s,transform .2s; opacity:0; }
+  .brand-card:hover { background:rgba(255,255,255,.1); transform:translateY(-2px); }
+  .brand-logo { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+  .brand-name { font-weight:600; font-size:.95rem; color:var(--cream); }
+  .brand-loc { font-size:.75rem; color:rgba(253,246,227,.5); margin-top:.2rem; }
+
+  /* FORM SECTION */
+  .form-section { background:linear-gradient(135deg,var(--cream) 0%,#FEF3D0 100%); padding:7rem 5%; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .form-card { background:white; border-radius:28px; padding:2.5rem; box-shadow:0 32px 80px rgba(26,18,9,.1); border:1px solid var(--border); }
+  .form-title { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; margin-bottom:.3rem; }
+  .form-subtitle { font-size:.85rem; color:rgba(26,18,9,.55); margin-bottom:2rem; }
+  .form-group { margin-bottom:1.2rem; }
+  .form-group label { display:block; font-size:.82rem; font-weight:500; margin-bottom:.4rem; color:rgba(26,18,9,.7); }
+  .form-group input, .form-group select { width:100%; padding:.8rem 1rem; border:1.5px solid rgba(26,18,9,.12); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:.9rem; background:var(--light); color:var(--deep); transition:border-color .2s,box-shadow .2s; outline:none; appearance:none; }
+  .form-group input:focus, .form-group select:focus { border-color:var(--saffron); box-shadow:0 0 0 3px rgba(244,160,23,.15); }
+  .form-group input.error { border-color: #e53935; }
+  .field-error { color:#e53935; font-size:.75rem; margin-top:.3rem; display:none; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .pill-group { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.4rem; }
+  .pill { padding:.45rem 1rem; border-radius:50px; font-size:.8rem; font-weight:500; border:1.5px solid rgba(26,18,9,.12); cursor:pointer; background:var(--light); color:var(--deep); transition:all .2s; user-select:none; }
+  .pill.active, .pill:hover { border-color:var(--saffron); background:rgba(244,160,23,.1); color:var(--rust); }
+  .submit-btn { width:100%; padding:1rem; border-radius:50px; background:linear-gradient(135deg,var(--saffron),var(--rust)); color:white; font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:600; border:none; cursor:pointer; transition:transform .2s,box-shadow .2s,opacity .2s; margin-top:.5rem; }
+  .submit-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 30px rgba(192,67,10,.35); }
+  .submit-btn:disabled { opacity:.7; cursor:not-allowed; }
+  .form-note { text-align:center; font-size:.75rem; color:rgba(26,18,9,.4); margin-top:1rem; }
+  .alert { display:none; border-radius:12px; padding:1rem 1.2rem; margin-top:1rem; font-size:.88rem; font-weight:500; }
+  .alert.success { display:block; background:rgba(74,124,89,.1); border:1px solid rgba(74,124,89,.3); color:var(--sage); animation:fadeUp .4s ease; }
+  .alert.error { display:block; background:rgba(229,57,53,.08); border:1px solid rgba(229,57,53,.25); color:#c62828; animation:fadeUp .4s ease; }
+
+  /* WHY */
+  .why-section { padding:7rem 5%; }
+  .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:4rem; }
+  .why-card { padding:2rem; border-radius:20px; border:1px solid var(--border); background:white; transition:transform .3s; opacity:0; }
+  .why-card:hover { transform:translateY(-4px); }
+  .why-card:nth-child(2) { background:var(--deep); color:var(--cream); border-color:transparent; }
+  .why-card:nth-child(2) .why-desc { color:rgba(253,246,227,.6); }
+  .why-emoji { font-size:2rem; margin-bottom:1rem; }
+  .why-title { font-family:'Fraunces',serif; font-weight:700; font-size:1.2rem; margin-bottom:.6rem; }
+  .why-desc { font-size:.88rem; line-height:1.7; color:rgba(26,18,9,.6); }
+
+  /* ADMIN DASHBOARD */
+  .admin-section { background:#F5F5F5; padding:5rem 5%; }
+  .admin-section .section-title { color:var(--deep); }
+  .admin-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem; }
+  .filters { display:flex; gap:.75rem; flex-wrap:wrap; }
+  .filter-select { padding:.5rem .9rem; border:1.5px solid rgba(26,18,9,.12); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.85rem; background:white; outline:none; cursor:pointer; }
+  .leads-table-wrap { background:white; border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.06); }
+  .leads-table { width:100%; border-collapse:collapse; }
+  .leads-table th { background:#F9F9F9; padding:.85rem 1.2rem; text-align:left; font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:rgba(26,18,9,.5); border-bottom:1px solid #eee; }
+  .leads-table td { padding:.9rem 1.2rem; font-size:.88rem; border-bottom:1px solid #f5f5f5; vertical-align:middle; }
+  .leads-table tr:last-child td { border-bottom:none; }
+  .leads-table tr:hover td { background:#FFFAF0; }
+  .status-badge { padding:.25rem .7rem; border-radius:20px; font-size:.72rem; font-weight:600; display:inline-block; }
+  .status-new { background:rgba(244,160,23,.15); color:var(--rust); }
+  .status-contacted { background:rgba(33,150,243,.1); color:#1565C0; }
+  .status-qualified { background:rgba(74,124,89,.1); color:var(--sage); }
+  .status-converted { background:rgba(46,125,50,.15); color:#1B5E20; }
+  .status-lost { background:rgba(229,57,53,.1); color:#b71c1c; }
+  .table-loading { text-align:center; padding:3rem; color:rgba(26,18,9,.4); }
+  .btn-sm { padding:.35rem .8rem; border-radius:8px; font-size:.78rem; font-weight:500; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s; }
+  .btn-danger { background:rgba(229,57,53,.1); color:#c62828; }
+  .btn-danger:hover { background:rgba(229,57,53,.2); }
+
+  /* FOOTER */
+  footer { background:var(--deep); color:rgba(253,246,227,.6); padding:3rem 5%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-top:1px solid rgba(255,255,255,.05); }
+  footer .logo { color:var(--cream); }
+  footer p { font-size:.82rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,.4); border-top-color:white; border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:.5rem; }
+
+  /* RESPONSIVE */
+  @media(max-width:768px) {
+    .hero { grid-template-columns:1fr; padding-top:7rem; gap:3rem; }
+    .hero-visual { display:none; }
+    .form-section { grid-template-columns:1fr; }
+    nav a:not(.nav-cta) { display:none; }
+    .hero-stats { gap:1.5rem; }
+    footer { flex-direction:column; text-align:center; }
+    .admin-header { flex-direction:column; }
+    .leads-table th:nth-child(4), .leads-table td:nth-child(4) { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Edu<span>Start</span></div>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#brands">For Brands</a>
+    <a href="#admin">Admin</a>
+    <a href="#enquire" class="nav-cta">Get Started →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>India's #1 Preschool Franchise Network</div>
+    <h1>Start your <em>preschool</em> franchise journey today</h1>
+    <p class="hero-sub">Connect with top preschool brands, get expert guidance, and launch your dream franchise — from ₹5L and upwards.</p>
+    <div class="hero-actions">
+      <a href="#enquire" class="btn-primary">Submit Enquiry →</a>
+      <a href="#how" class="btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Leads generated</div></div>
+      <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">Partner brands</div></div>
+      <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Cities active</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="visual-card">
+      <div class="floating-badge">✓ New lead matched!</div>
+      <div class="vc-header">
+        <div class="vc-icon">🏫</div>
+        <div><div class="vc-title">Live Lead Feed</div><div class="vc-sub">Updated in real-time</div></div>
+      </div>
+      <div class="lead-list">
+        <div class="lead-item"><div class="lead-avatar" style="background:#C0430A">R</div><div class="lead-info"><div class="lead-name">Riya Mehta</div><div class="lead-detail">Bangalore · Immediate</div></div><span class="lead-budget">₹10–20L</span></div>
+        <div class="lead-item"><div class="lead-avatar" style="background:#4A7C59">A</div><div class="lead-info"><div class="lead-name">Arjun Sharma</div><div class="lead-detail">Pune · 1–3 months</div></div><span class="lead-budget">₹20L+</span></div>
+        <div class="lead-item"><div class="lead-avatar" style="background:#F4A017">P</div><div class="lead-info"><div class="lead-name">Priya Nair</div><div class="lead-detail">Chennai · Exploring</div></div><span class="lead-budget">₹5–10L</span></div>
+      </div>
+      <div class="vc-footer">
+        <div class="vc-metric"><div class="vc-metric-val">₹650</div><div class="vc-metric-label">Avg. lead value</div></div>
+        <div class="vc-metric"><div class="vc-metric-val">94%</div><div class="vc-metric-label">Quality score</div></div>
+        <div class="vc-metric"><div class="vc-metric-val">2.4h</div><div class="vc-metric-label">Response time</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how" style="background:white;">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">From enquiry to franchise in 4 simple steps</h2>
+  <p class="section-sub">Our platform removes the guesswork — matched with the right preschool brand for your city and budget.</p>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">01</div><div class="step-icon">📝</div><div class="step-title">Submit Your Enquiry</div><div class="step-desc">Fill out a quick form with your city, budget, and timeline. Takes under 2 minutes.</div></div>
+    <div class="step-card"><div class="step-num">02</div><div class="step-icon">🔍</div><div class="step-title">We Qualify Your Lead</div><div class="step-desc">Our team reviews your profile to ensure it's a strong match for our partner brands.</div></div>
+    <div class="step-card"><div class="step-num">03</div><div class="step-icon">🤝</div><div class="step-title">Brand Connection</div><div class="step-desc">Get connected with 2–3 vetted preschool brands that fit your requirements perfectly.</div></div>
+    <div class="step-card"><div class="step-num">04</div><div class="step-icon">🚀</div><div class="step-title">Launch Your School</div><div class="step-desc">Negotiate terms, sign agreements, and start building your preschool business.</div></div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands-section" id="brands">
+  <div class="section-label">Partner Brands</div>
+  <h2 class="section-title">Top preschool brands looking for franchise partners</h2>
+  <p class="section-sub" style="color:rgba(253,246,227,.6)">We work with India's most trusted preschool brands actively seeking expansion.</p>
+  <div class="brands-grid">
+    <div class="brand-card"><div class="brand-logo" style="background:rgba(244,160,23,.2)">🌟</div><div><div class="brand-name">Sunshine Kids</div><div class="brand-loc">12 cities · ₹10L+</div></div></div>
+    <div class="brand-card"><div class="brand-logo" style="background:rgba(74,124,89,.2)">🌱</div><div><div class="brand-name">GreenSprouts</div><div class="brand-loc">8 cities · ₹8L+</div></div></div>
+    <div class="brand-card"><div class="brand-logo" style="background:rgba(192,67,10,.2)">🎨</div><div><div class="brand-name">Little Einsteins</div><div class="brand-loc">20 cities · ₹15L+</div></div></div>
+    <div class="brand-card"><div class="brand-logo" style="background:rgba(244,160,23,.15)">🧩</div><div><div class="brand-name">PlayWise</div><div class="brand-loc">5 cities · ₹6L+</div></div></div>
+    <div class="brand-card"><div class="brand-logo" style="background:rgba(74,124,89,.15)">🦋</div><div><div class="brand-name">ButterflyLane</div><div class="brand-loc">15 cities · ₹12L+</div></div></div>
+    <div class="brand-card"><div class="brand-logo" style="background:rgba(192,67,10,.15)">⭐</div><div><div class="brand-name">+ 35 more</div><div class="brand-loc">Across India</div></div></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="section-label">Why EduStart</div>
+  <h2 class="section-title">Built for serious franchise aspirants</h2>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-emoji">🎯</div><div class="why-title">Qualified Leads Only</div><div class="why-desc">Every lead is verified before being shared. Brands get high-intent prospects, not random clicks.</div></div>
+    <div class="why-card"><div class="why-emoji">⚡</div><div class="why-title">Fast Matching</div><div class="why-desc">Our system matches you with brands in under 24 hours — no long waiting periods.</div></div>
+    <div class="why-card"><div class="why-emoji">🔒</div><div class="why-title">Privacy First</div><div class="why-desc">Your data is shared only with matched brands. We never sell information to third parties.</div></div>
+    <div class="why-card"><div class="why-emoji">📊</div><div class="why-title">Full Transparency</div><div class="why-desc">Know exactly which brands received your enquiry and when they'll follow up.</div></div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<section class="form-section" id="enquire">
+  <div class="section-text">
+    <div class="section-label">Submit Enquiry</div>
+    <h2 class="section-title">Ready to open your preschool?</h2>
+    <p class="section-sub">Fill out the form and we'll connect you with the top 3 franchise brands that match your profile — within 24 hours.</p>
+    <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;"><span style="color:var(--sage);font-size:1.2rem">✓</span> No upfront cost to enquire</div>
+      <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;"><span style="color:var(--sage);font-size:1.2rem">✓</span> Response within 24 hours</div>
+      <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;"><span style="color:var(--sage);font-size:1.2rem">✓</span> Multiple brand options provided</div>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="form-title">Start Your Enquiry</div>
+    <div class="form-subtitle">We'll match you with the right franchise brands</div>
+    <form id="leadForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="f-name" placeholder="Priya Sharma">
+          <div class="field-error" id="err-name">Please enter your name</div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="f-phone" placeholder="9876543210" maxlength="10">
+          <div class="field-error" id="err-phone">Enter valid 10-digit mobile number</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>City *</label>
+        <input type="text" id="f-city" placeholder="Bangalore, Mumbai, Pune...">
+        <div class="field-error" id="err-city">Please enter your city</div>
+      </div>
+      <div class="form-group">
+        <label>Investment Budget *</label>
+        <div class="pill-group" id="budgetPills">
+          <div class="pill" data-value="5-10L" onclick="selectPill(this,'budget')">₹5–10 Lakhs</div>
+          <div class="pill" data-value="10-20L" onclick="selectPill(this,'budget')">₹10–20 Lakhs</div>
+          <div class="pill" data-value="20L+" onclick="selectPill(this,'budget')">₹20 Lakhs+</div>
+        </div>
+        <div class="field-error" id="err-budget">Please select a budget range</div>
+      </div>
+      <div class="form-group">
+        <label>Timeline *</label>
+        <div class="pill-group" id="timelinePills">
+          <div class="pill" data-value="Immediate" onclick="selectPill(this,'timeline')">Immediate</div>
+          <div class="pill" data-value="1-3 months" onclick="selectPill(this,'timeline')">1–3 Months</div>
+          <div class="pill" data-value="Exploring" onclick="selectPill(this,'timeline')">Exploring</div>
+        </div>
+        <div class="field-error" id="err-timeline">Please select a timeline</div>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn" onclick="handleSubmit(event)">Submit Enquiry →</button>
+      <p class="form-note">🔒 Your information is safe and never shared without consent.</p>
+    </form>
+    <div class="alert" id="formAlert"></div>
+  </div>
+</section>
+
+<!-- ADMIN DASHBOARD -->
+<section class="admin-section" id="admin">
+  <div class="admin-header">
+    <div>
+      <div class="section-label">Admin Panel</div>
+      <h2 class="section-title" style="font-size:1.8rem">Lead Dashboard</h2>
+    </div>
+    <div class="filters">
+      <select class="filter-select" id="filterStatus" onchange="loadLeads()">
+        <option value="">All Status</option>
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="qualified">Qualified</option>
+        <option value="converted">Converted</option>
+        <option value="lost">Lost</option>
+      </select>
+      <select class="filter-select" id="filterBudget" onchange="loadLeads()">
+        <option value="">All Budgets</option>
+        <option value="5-10L">₹5–10L</option>
+        <option value="10-20L">₹10–20L</option>
+        <option value="20L+">₹20L+</option>
+      </select>
+      <button class="btn-primary" style="padding:.5rem 1.2rem;font-size:.85rem" onclick="loadLeads()">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div id="statsRow" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;"></div>
+
+  <div class="leads-table-wrap">
+    <table class="leads-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Budget</th>
+          <th>Timeline</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="leadsBody">
+        <tr><td colspan="8" class="table-loading">Loading leads…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Edu<span>Start</span></div>
+  <p>© 2025 EduStart. Bridging franchise aspirants with top preschool brands.</p>
+  <p style="font-size:.78rem">Bangalore · Mumbai · Pune · More cities coming soon</p>
+</footer>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────
+  // Change this to your backend URL when deployed
+  const API_BASE = 'http://localhost:5000/api';
+
+  // ── FORM STATE ──────────────────────────────────────
+  const selected = { budget: '', timeline: '' };
+
+  function selectPill(el, group) {
+    document.querySelectorAll(`#${group}Pills .pill`).forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    selected[group] = el.dataset.value;
+    document.getElementById(`err-${group}`).style.display = 'none';
+  }
+
+  // ── FORM VALIDATION ─────────────────────────────────
+  function validateForm() {
+    let valid = true;
+    const name = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const city = document.getElementById('f-city').value.trim();
+
+    if (name.length < 2) { showFieldError('name'); valid = false; } else hideFieldError('name');
+    if (!/^[6-9]\d{9}$/.test(phone)) { showFieldError('phone'); valid = false; } else hideFieldError('phone');
+    if (!city) { showFieldError('city'); valid = false; } else hideFieldError('city');
+    if (!selected.budget) { showFieldError('budget'); valid = false; } else hideFieldError('budget');
+    if (!selected.timeline) { showFieldError('timeline'); valid = false; } else hideFieldError('timeline');
+
+    return valid;
+  }
+
+  function showFieldError(field) {
+    document.getElementById(`f-${field}`)?.classList.add('error');
+    document.getElementById(`err-${field}`).style.display = 'block';
+  }
+  function hideFieldError(field) {
+    document.getElementById(`f-${field}`)?.classList.remove('error');
+    document.getElementById(`err-${field}`).style.display = 'none';
+  }
+
+  // ── FORM SUBMIT ─────────────────────────────────────
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+    const payload = {
+      name: document.getElementById('f-name').value.trim(),
+      phone: document.getElementById('f-phone').value.trim(),
+      city: document.getElementById('f-city').value.trim(),
+      budget: selected.budget,
+      timeline: selected.timeline,
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/leads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        showAlert('success', '🎉 Enquiry received! Our team will reach out within 24 hours.');
+        document.getElementById('leadForm').reset();
+        selected.budget = ''; selected.timeline = '';
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        loadLeads(); // refresh admin table
+      } else {
+        showAlert('error', data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      showAlert('error', '⚠️ Could not connect to server. Please check your connection.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Submit Enquiry →';
+    }
+  }
+
+  function showAlert(type, msg) {
+    const el = document.getElementById('formAlert');
+    el.className = `alert ${type}`;
+    el.textContent = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── ADMIN: LOAD LEADS ───────────────────────────────
+  async function loadLeads() {
+    const status = document.getElementById('filterStatus').value;
+    const budget = document.getElementById('filterBudget').value;
+    let url = `${API_BASE}/leads?limit=50`;
+    if (status) url += `&status=${status}`;
+    if (budget) url += `&budget=${encodeURIComponent(budget)}`;
+
+    const tbody = document.getElementById('leadsBody');
+    tbody.innerHTML = '<tr><td colspan="8" class="table-loading">Loading…</td></tr>';
+
+    try {
+      const [leadsRes, statsRes] = await Promise.all([
+        fetch(url),
+        fetch(`${API_BASE}/leads/stats`)
+      ]);
+      const leadsData = await leadsRes.json();
+      const statsData = await statsRes.json();
+
+      renderStats(statsData.data);
+      renderLeads(leadsData.data || []);
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="8" class="table-loading">⚠️ Could not load leads. Make sure the backend is running.</td></tr>';
+    }
+  }
+
+  function renderStats(stats) {
+    if (!stats) return;
+    const el = document.getElementById('statsRow');
+    const cards = [
+      { label: 'Total Leads', val: stats.total, color: '#F4A017' },
+      { label: 'Today', val: stats.todayCount, color: '#4A7C59' },
+      { label: 'New', val: (stats.byStatus.find(s => s._id === 'new') || {}).count || 0, color: '#1565C0' },
+      { label: 'Converted', val: (stats.byStatus.find(s => s._id === 'converted') || {}).count || 0, color: '#2E7D32' },
+    ];
+    el.innerHTML = cards.map(c => `
+      <div style="background:white;border-radius:16px;padding:1.2rem 1.5rem;border:1px solid #eee;">
+        <div style="font-family:'Fraunces',serif;font-size:2rem;font-weight:800;color:${c.color}">${c.val}</div>
+        <div style="font-size:.78rem;color:rgba(26,18,9,.5);margin-top:.2rem">${c.label}</div>
+      </div>`).join('');
+  }
+
+  function renderLeads(leads) {
+    const tbody = document.getElementById('leadsBody');
+    if (!leads.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="table-loading">No leads found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = leads.map(l => `
+      <tr>
+        <td><strong>${escHtml(l.name)}</strong></td>
+        <td><a href="tel:${escHtml(l.phone)}" style="color:var(--rust);text-decoration:none">${escHtml(l.phone)}</a></td>
+        <td>${escHtml(l.city)}</td>
+        <td>₹${escHtml(l.budget)}</td>
+        <td>${escHtml(l.timeline)}</td>
+        <td>
+          <select class="filter-select" style="padding:.3rem .6rem;font-size:.75rem" onchange="updateStatus('${l._id}', this.value)">
+            ${['new','contacted','qualified','converted','lost'].map(s =>
+              `<option value="${s}" ${l.status===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`
+            ).join('')}
+          </select>
+        </td>
+        <td style="color:rgba(26,18,9,.5);font-size:.8rem">${new Date(l.createdAt).toLocaleDateString('en-IN')}</td>
+        <td><button class="btn-sm btn-danger" onclick="deleteLead('${l._id}')">Delete</button></td>
+      </tr>`).join('');
+  }
+
+  async function updateStatus(id, status) {
+    try {
+      await fetch(`${API_BASE}/leads/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      });
+    } catch { alert('Failed to update status.'); }
+  }
+
+  async function deleteLead(id) {
+    if (!confirm('Delete this lead permanently?')) return;
+    try {
+      await fetch(`${API_BASE}/leads/${id}`, { method: 'DELETE' });
+      loadLeads();
+    } catch { alert('Failed to delete lead.'); }
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── INTERSECTION OBSERVER ────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.animation = 'fadeUp 0.6s ease both';
+          entry.target.style.opacity = '1';
+        }, i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step-card, .why-card, .brand-card').forEach(el => observer.observe(el));
+
+  // ── INIT ────────────────────────────────────────────
+  loadLeads();
+</script>
+</body>
+</html>
